@@ -47,6 +47,14 @@ class UserController extends Controller implements HasMiddleware
         $user->role = $request->role;
         $user->password = bcrypt($request->password);
 
+        if ($request->hasFile('photo')) {
+            $photoExtension = $request->file('photo')->getClientOriginalExtension();
+            $photoName = str_replace(' ', '_', $request->name) . '_' . time() . '.' . $photoExtension;
+            $request->file('photo')->move('images/users', $photoName);
+
+            $user->photo = $photoName;
+        }
+
         $user->save();
         return redirect(route('admin.users'));
     }

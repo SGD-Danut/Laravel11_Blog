@@ -27,7 +27,8 @@ class AddUserRequest extends FormRequest
             'phone' => 'max:15',
             'address' => 'max:120',
             'role' => 'required',
-            'password' => 'required|min:8',
+            'password' => 'required|min:8|confirmed',
+            'photo' => 'max:1024'
         ];
     }
 
@@ -43,6 +44,8 @@ class AddUserRequest extends FormRequest
             'role.required' => 'Trebui să dați un rol utilizatorului!',
             'password.required' => 'Trebuie să dați o parolă utilizatorului!',
             'password.min' => 'Parola utilizatorului trebuie să fie formată din cel puțin 8 caractere!',
+            'password.confirmed' => 'Parola confirmată nu este corectă!',
+            'photo.max' => 'Fotografia utilizatorului nu poate să ocupe mai mult de 1MB!',
         ];
     }
 }

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('photo')->default('defaultUserPhoto.jpg')->nullable();
+            $table->string('photo')->default('defaultUserPhoto.png')->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->string('role')->default('editor')->nullable();

@@ -19,7 +19,7 @@
     <div class="card-header">
         <h5 class="card-title mb-0">{{ $title }}</h5>     
     </div>
-    <form action="{{ route('create-new-user') }}" method="POST" class="col-lg-3 mx-auto">
+    <form action="{{ route('create-new-user') }}" method="POST" class="col-lg-3 mx-auto" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="InputName" class="form-label">Nume complet</label>
@@ -65,6 +65,44 @@
             <div id="passwordHelp" class="form-text text-danger">{{ $message }}</div>
             @enderror
         </div>
+        <div class="mb-3">
+            <label for="InputConfirmPassword" class="form-label">Confirmare parolă</label>
+            <input type="password" class="form-control" id="InputConfirmPassword" name="password_confirmation">
+        </div>
+        <div class="mb-3">
+            <label for="photo-file" class="form-label">Fotografie</label>
+                <div class="mb-3 rounded mx-auto d-block" id="image-preview">
+                    <img src="\storage\images\users\defaultUserPhoto.png" class="img-thumbnail mx-auto d-block" alt="Imagine utilizator" width="150">
+                </div>
+            <input class="form-control" type="file" accept="image/*" id="photo-file" name="photo">
+            @error('photo')
+                <div id="photoHelp" class="form-text text-danger">{{ $message }}</div>
+            @enderror
+        </div>                
         <button type="submit" class="btn btn-primary">Adaugă utilizator</button>
     </form>
+    <br>
+@endsection
+
+@section('custom-js')
+    <script>
+        const chooseFile = document.getElementById("photo-file");
+        const imgPreview = document.getElementById("image-preview");
+
+        chooseFile.addEventListener("change", function () {
+            getImgData();
+        });
+
+        function getImgData() {
+            const file = chooseFile.files[0];
+            if (file) {
+                const fileReader = new FileReader();
+                fileReader.readAsDataURL(file);
+                fileReader.addEventListener("load", function () {
+                    imgPreview.style.display = "block";
+                    imgPreview.innerHTML = '<img src="' + this.result + '" class="img-thumbnail" alt="Imagine utilizator">';
+                });    
+            }
+        }
+    </script>
 @endsection
