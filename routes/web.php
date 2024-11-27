@@ -33,4 +33,7 @@ Route::prefix('admin')->controller(UserController::class)->middleware(['auth', O
     Route::get('/users', 'showUsers')->name('admin.users');
     Route::get('/new-user-form', 'newUserForm')->name('new-user-form');
     Route::post('/create-new-user', 'createNewUser')->name('create-new-user');
+    Route::get('/edit-user-form/{userId}', 'editUserForm')->name('edit-user-form');
+    Route::put('/update-user/{userId}', 'updateUser')->name('update-user');
+    Route::delete('/delete-user/{userId}', 'deleteUser')->name('delete-user');
 });

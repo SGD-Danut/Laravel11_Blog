@@ -33,6 +33,7 @@
                 <th scope="col" class="text-center">Fotografie:</th>
                 <th class="d-none d-xl-table-cell">Rol:</th>
                 <th class="d-none d-md-table-cell">Creat la:</th>
+                <th scope="col">Acțiuni:</th>
             </tr>
         </thead>
         <tbody>
@@ -45,6 +46,20 @@
                     <td><img src="/storage/images/users/{{ $user->photo }}" class="mx-auto" width="35" alt="Imagine utilizator"></td>
                     <td class="d-none d-xl-table-cell">{{ $user->role }}</td>
                     <td class="d-none d-md-table-cell">{{ $user->created_at->format('d.m.Y') }}</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Action buttons">
+                            <a href="{{ route('edit-user-form', $user->id) }}"><button type="button" class="btn btn-primary">Editare</button></a>
+                            <form id="delete-user-form-with-id-{{ $user->id }}" action="{{ route('delete-user', $user->id) }}" method="POST">
+                                @csrf
+                                @method('delete')
+                            </form>
+                            <button type="button" class="btn btn-danger" onclick="
+                            if(confirm('Sigur ștergeți acest utilizator?')) {
+                                document.getElementById('delete-user-form-with-id-' + {{ $user->id }}).submit();
+                            }
+                            ">Ștergere</button>
+                        </div>
+                    </td>                                      
                 </tr>
             @endforeach
         </tbody>
