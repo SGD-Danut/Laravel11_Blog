@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\UserProfileController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\OnlyAdminHasAccess;
 use Illuminate\Support\Facades\Route;
@@ -36,4 +37,10 @@ Route::prefix('admin')->controller(UserController::class)->middleware(['auth', O
     Route::get('/edit-user-form/{userId}', 'editUserForm')->name('edit-user-form');
     Route::put('/update-user/{userId}', 'updateUser')->name('update-user');
     Route::delete('/delete-user/{userId}', 'deleteUser')->name('delete-user');
+});
+
+Route::prefix('admin')->controller(UserProfileController::class)->middleware('auth')->group(function() {
+    Route::get('/edit-user-profile-form', 'showUserProfileForm')->name('edit-user-profile-form');
+    Route::put('/update-user-profile', 'updateUserProfile')->name('update-user-profile');
+    Route::put('/update-password', 'updatePassword')->name('update-password');
 });
