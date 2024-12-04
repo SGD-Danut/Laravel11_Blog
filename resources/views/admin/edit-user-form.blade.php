@@ -59,6 +59,15 @@
             </select>
         </div>
         <div class="mb-3">
+            <label for="userEmailStatus" class="form-label">Stare confirmare email</label>
+            <select class="form-select" aria-label="Select email action" name="userEmailAction">
+                <option selected value="noAction">Nici-o acțiune</option>
+                <option class="text-warning" value="notifyUserToConfirmEmail">Trimite notificare de confirmare email</option>
+                <option class="text-success" value="validateEmail">Valideză email-ul</option>
+                <option class="text-danger" value="invalidateEmail" >Invalideză email-ul</option>
+            </select>
+        </div>
+        <div class="mb-3">
             <label for="photo-file" class="form-label">Fotografie</label>
                 <div class="mb-3 rounded mx-auto d-block" id="image-preview">
                     <img src="\storage\images\users\{{ $user->photo }}" width="150" class="img-thumbnail mx-auto d-block" alt="Imagine utilizator">

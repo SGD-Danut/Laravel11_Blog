@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UpdateProfilePasswordRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,7 +26,7 @@ class UserProfileController extends Controller
     }
 
 
-    public function updateUserProfile(ProfileUpdateRequest $request) {
+    public function updateUserProfile(UpdateUserRequest $request) {
         $request->validate( 
             [
                 'email' => 'unique:users,email,' . auth()->id()
@@ -56,7 +56,8 @@ class UserProfileController extends Controller
 
         $user->save();
         
-        return redirect(route('dashboard'));
+        // return redirect(route('dashboard'));
+        return redirect()->back()->with('success', 'Profilul a fost actualizat cu succes!');
     }
     
     public function updatePassword(UpdateProfilePasswordRequest $request) {

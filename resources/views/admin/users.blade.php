@@ -18,6 +18,7 @@
 @section('content')
     <div class="card-header">
         <h5 class="card-title mb-0">{{ $title }}</h5>
+        @include('admin.template.parts.messages')
         <br>
         <a href="{{ route('new-user-form') }}">
             <button type="button" class="btn btn-success new-user-button">Utilizator nou</button>
@@ -27,6 +28,7 @@
         <thead>
             <tr>
                 <th>#</th>
+                <th class="d-none d-xl-table-cell">Verificat:</th>
                 <th class="d-none d-xl-table-cell">Nume:</th>
                 <th class="d-none d-xl-table-cell">Email:</th>
                 <th class="d-none d-xl-table-cell">Adresa / Telefon:</th>
@@ -40,6 +42,7 @@
             @foreach ($users as $user)
                 <tr>
                     <td>{{ $user->id }}</td>
+                    <td scope="row">{!! $user->hasVerifiedEmail() ? '<i class="bi bi-person-check-fill text-info"> Da</i>' : '<i class="bi bi-person-check text-warning"> Nu</i>' !!}</td>
                     <td class="d-none d-xl-table-cell">{{ $user->name }}</td>
                     <td class="d-none d-xl-table-cell">{{ $user->email }}</td>
                     <td class="d-none d-xl-table-cell">{{ $user->address }} {{ $user->phone }}</td>

@@ -19,6 +19,7 @@
     <div class="card-header">
         <h5 class="card-title mb-0">{{ $title }}</h5>     
     </div>
+    @include('admin.template.parts.messages')
     <form action="{{ route('update-user-profile') }}" method="POST" class="col-lg-3 mx-auto" enctype="multipart/form-data">
         @csrf
         @method('put')

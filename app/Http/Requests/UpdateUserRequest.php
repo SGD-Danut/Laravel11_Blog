@@ -26,7 +26,7 @@ class UpdateUserRequest extends FormRequest
             'email' => 'required|email',
             'phone' => 'max:15',
             'address' => 'max:120',
-            'role' => 'required',
+            // 'role' => 'required',
             'photo' => 'max:1024'
         ];
     }
@@ -39,7 +39,7 @@ class UpdateUserRequest extends FormRequest
             'email.email' => 'Introduceți o adresă de email validă!',
             'phone.max' => 'Numărul de telefon nu poate avea mai mult de 15 caractere!',
             'address.max' => 'Adresa nu poate să fie formată din mai mult de 120 de caractere!',
-            'role.required' => 'Trebui să dați un rol utilizatorului!',
+            // 'role.required' => 'Trebui să dați un rol utilizatorului!',
             'photo.max' => 'Fotografia utilizatorului nu poate să ocupe mai mult de 1MB!',
         ];
     }

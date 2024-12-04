@@ -70,6 +70,13 @@
             <input type="password" class="form-control" id="InputConfirmPassword" name="password_confirmation">
         </div>
         <div class="mb-3">
+            <label for="ValidateEmail" class="form-label">Validare email</label>
+            <div class="form-check text-start">
+                <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefaultForEmailValidation" name="validateEmail">
+                <label class="form-check-label" for="flexCheckDefaultForEmailValidation">Email validat</label>
+            </div>
+        </div>        
+        <div class="mb-3">
             <label for="photo-file" class="form-label">Fotografie</label>
                 <div class="mb-3 rounded mx-auto d-block" id="image-preview">
                     <img src="\storage\images\users\defaultUserPhoto.png" class="img-thumbnail mx-auto d-block" alt="Imagine utilizator" width="150">
