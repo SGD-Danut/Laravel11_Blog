@@ -21,7 +21,11 @@
                 </a>
             </li>
 
-            
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ route('admin.categories') }}">
+                    <i class="align-middle" data-feather="list"></i> <span class="align-middle">Categorii</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserProfileController;
 use App\Http\Controllers\ProfileController;
@@ -39,8 +40,14 @@ Route::prefix('admin')->controller(UserController::class)->middleware(['auth', O
     Route::delete('/delete-user/{userId}', 'deleteUser')->name('delete-user');
 });
 
-Route::prefix('admin')->controller(UserProfileController::class)->middleware('auth')->group(function() {
+Route::prefix('admin')->controller(UserProfileController::class)->middleware('auth', 'verified')->group(function() {
     Route::get('/edit-user-profile-form', 'showUserProfileForm')->name('edit-user-profile-form');
     Route::put('/update-user-profile', 'updateUserProfile')->name('update-user-profile');
     Route::put('/update-password', 'updatePassword')->name('update-password');
+});
+
+Route::prefix('admin')->controller(CategoryController::class)->middleware('auth', 'verified')->group(function() {
+    Route::get('/categories', 'showCategories')->name('admin.categories');
+    Route::get('/new-category-form', 'newCategoryForm')->name('admin.new-category-form');
+    Route::post('/create-new-category', 'createNewCategory')->name('admin.create-new-category');
 });
