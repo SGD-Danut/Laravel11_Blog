@@ -30,7 +30,7 @@ require __DIR__.'/auth.php';
 // Route::post('/admin/create-new-user', [UserController::class, 'createNewUser'])->middleware(['auth', OnlyAdminHasAccess::class])->name('create-new-user');
 
 // Rute grupate dupa prefix, middleware si controller:
-Route::prefix('admin')->controller(UserController::class)->middleware(['auth', OnlyAdminHasAccess::class, 'verified'])->group(function() {
+Route::prefix('admin')->controller(UserController::class)->middleware(['auth', 'verified'])->group(function() {
     Route::get('/', 'showHome')->name('admin.home');
     Route::get('/users', 'showUsers')->name('admin.users');
     Route::get('/new-user-form', 'newUserForm')->name('new-user-form');
@@ -50,4 +50,7 @@ Route::prefix('admin')->controller(CategoryController::class)->middleware('auth'
     Route::get('/categories', 'showCategories')->name('admin.categories');
     Route::get('/new-category-form', 'newCategoryForm')->name('admin.new-category-form');
     Route::post('/create-new-category', 'createNewCategory')->name('admin.create-new-category');
+    Route::get('/edit-category-form/{categoryId}', 'editCategoryForm')->name('admin.edit-category-form');
+    Route::put('/update-category/{categoryId}', 'updateCategory')->name('admin.update-category');
+    Route::delete('/delete-category/{categoryId}', 'deleteCategory')->name('admin.delete-category');
 });

@@ -23,7 +23,7 @@ class AddCategoryRequest extends FormRequest
     {
         return [
             'title' => 'required|max:50',
-            'slug' => 'required|max:255|unique:categories,slug',
+            'slug' => 'required|max:255',
             'subtitle' => 'max:255',
             'presentation' => 'max:6000',
             'image' => 'max:1024',
@@ -39,7 +39,6 @@ class AddCategoryRequest extends FormRequest
             'title.max' => 'Numele categoriei nu poate avea mai mult de 50 de caractere!',
             'slug.required' => 'Adresa slug a categoriei este obligatorie!',
             'slug.max' => 'Adresa slug a categoriei nu poate avea mai mult de 255 de caractere!',
-            'slug.unique' => 'Această adresă slug este deja înregistrată!',
             'subtitle.max' => 'Subtitlul categoriei nu poate avea mai mult de 255 caractere!',
             'presentation.max' => 'Prezentarea categoriei nu poate avea mai mult de 6000 caractere!',
             'image.max' => 'Imaginea categoriei nu poate să ocupe mai mult de 1MB!',

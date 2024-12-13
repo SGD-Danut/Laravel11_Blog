@@ -19,8 +19,7 @@ class UserController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            'auth',
-            OnlyAdminHasAccess::class
+            'auth'
         ];
     }
 
