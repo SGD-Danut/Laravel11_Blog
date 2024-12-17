@@ -18,6 +18,7 @@
     <table class="table" id="datatables">
         <thead>
             <tr>
+                <th scope="col">Poziție:</th>
                 <th scope="col">Titlu:</th>
                 <th scope="col">Subtitlu:</th>
                 <th scope="col">Vizualizări:</th>
@@ -29,6 +30,7 @@
         <tbody class="table-group-divider">
             @foreach ($categories as $category)
                 <tr>
+                    <td>{{ $category->position }}</td>
                     <td>{{ $category->title }}</td>
                     <td>{{ $category->subtitle }}</td>
                     <td>{{ $category->views }}</td>

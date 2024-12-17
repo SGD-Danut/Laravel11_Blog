@@ -47,6 +47,8 @@ class CategoryController extends Controller
         $category->slug = Str::slug($request->slug);
         $category->subtitle = $request->subtitle;
         $category->presentation = $request->presentation;
+        $category->position = $request->position;
+        $category->published = $request->published;
     
         $category->meta_title = $request->meta_title;
         $category->meta_description = $request->meta_description;
@@ -89,6 +91,8 @@ class CategoryController extends Controller
         $category->slug = Str::slug($request->slug);
         $category->subtitle = $request->subtitle;
         $category->presentation = $request->presentation;
+        $category->position = $request->position;
+        $category->published = $request->published;
     
         $category->meta_title = $request->meta_title;
         $category->meta_description = $request->meta_description;

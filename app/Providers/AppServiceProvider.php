@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
             return $user->role == 'admin' or $user->role == 'author';
         });
 
-        $menuCategories = Category::all();
+        $menuCategories = Category::all()->sortBy('title')->where('published', 1);
         View::share('menuCategories', $menuCategories);
     }
 }

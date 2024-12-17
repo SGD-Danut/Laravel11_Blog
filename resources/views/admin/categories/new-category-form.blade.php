@@ -53,13 +53,27 @@
                 <div id="photoHelp" class="form-text text-danger">{{ $message }}</div>
             @enderror
         </div>
-        <div class="mb-3 col-md-10">
+        <div class="mb-3 col-md-9">
             <label for="InputPresentation" class="form-label">Prezentare</label>
             <textarea type="text" class="form-control categoryTextArea @error('presentation') is-invalid @enderror" id="InputPresentation" aria-describedby="presentationHelp" name="presentation" value="{{ old('presentation') }}"></textarea>
             @error('presentation')
                 <div id="presentationHelp" class="form-text text-danger">{{ $message }}</div>
             @enderror
         </div>
+        <div class="mb-3 col-md-1">
+            <label for="InputPosition" class="form-label">Poziție</label>
+            <input type="number" class="form-control @error('position') is-invalid @enderror" id="InputPosition" aria-describedby="positionHelp" name="position" value="{{ old('position') }}">
+            @error('position')
+                <div id="positionHelp" class="form-text text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="mb-3 col-md-1">
+            <label for="Published" class="form-label">Publicat</label>
+            <div class="form-check text-start">
+                <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefaultForPublished" name="published" {{ old('published') == 1 ? 'checked' : ''}}>
+                <label class="form-check-label" for="flexCheckDefaultForPublished">Public</label>
+            </div>
+        </div>                
         <div class="mb-3 row g-3">
             <div class="mb-3 col-md-4">
                 <label for="InputMetaTitle" class="form-label">Meta Title</label>
