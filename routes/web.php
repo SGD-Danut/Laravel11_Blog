@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserProfileController;
+use App\Http\Controllers\Front\FrontEndController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\OnlyAdminHasAccess;
 use Illuminate\Support\Facades\Route;
@@ -54,3 +55,6 @@ Route::prefix('admin')->controller(CategoryController::class)->middleware('auth'
     Route::put('/update-category/{categoryId}', 'updateCategory')->name('admin.update-category');
     Route::delete('/delete-category/{categoryId}', 'deleteCategory')->name('admin.delete-category');
 });
+
+Route::get('/all-categories', [FrontEndController::class, 'showAllCategories'])->name('front.all-categories');
+Route::get('/current-category/{category:slug}', [FrontEndController::class, 'showCurrentCategory'])->name('front.current-category');
