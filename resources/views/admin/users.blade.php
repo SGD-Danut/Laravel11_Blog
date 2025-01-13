@@ -47,7 +47,13 @@
                     <td class="d-none d-xl-table-cell">{{ $user->email }}</td>
                     <td class="d-none d-xl-table-cell">{{ $user->address }} {{ $user->phone }}</td>
                     <td><img src="/storage/images/users/{{ $user->photo }}" class="mx-auto" width="35" alt="Imagine utilizator"></td>
-                    <td class="d-none d-xl-table-cell">{{ $user->role }}</td>
+                    <td class="d-none d-xl-table-cell">
+                        @if ($user->role == 'author')
+                            <a href="{{ route('admin.posts', ['author' => $user->id]) }}" title="Vezi postări utilizator">{{ $user->role }} ({{ $user->posts->count() }})</a>
+                        @else
+                            {{ $user->role }}
+                        @endif
+                    </td>
                     <td class="d-none d-md-table-cell">{{ $user->created_at->format('d.m.Y') }}</td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Action buttons">

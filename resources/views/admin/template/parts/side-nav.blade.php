@@ -15,15 +15,23 @@
                 </a>
             </li>
 
+            @if (auth()->user()->role == 'admin')
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('admin.users') }}">
+                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Utilizatori</span>
+                    </a>
+                </li>
+            @endif
+            
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ route('admin.users') }}">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Utilizatori</span>
+                <a class="sidebar-link" href="{{ route('admin.categories') }}">
+                    <i class="align-middle" data-feather="list"></i> <span class="align-middle">Categorii</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ route('admin.categories') }}">
-                    <i class="align-middle" data-feather="list"></i> <span class="align-middle">Categorii</span>
+                <a class="sidebar-link" href="{{ route('admin.posts') }}">
+                    <i class="align-middle" data-feather="layout"></i> <span class="align-middle">Postări</span>
                 </a>
             </li>
         </ul>

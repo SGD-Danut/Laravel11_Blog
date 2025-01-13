@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 Use App\Models\User;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,5 +30,7 @@ class AppServiceProvider extends ServiceProvider
 
         $menuCategories = Category::all()->sortBy('title')->where('published', 1);
         View::share('menuCategories', $menuCategories);
+
+        Paginator::useBootstrapFive();
     }
 }

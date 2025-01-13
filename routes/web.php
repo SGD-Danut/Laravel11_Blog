@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserProfileController;
 use App\Http\Controllers\Front\FrontEndController;
@@ -31,8 +32,12 @@ require __DIR__.'/auth.php';
 // Route::post('/admin/create-new-user', [UserController::class, 'createNewUser'])->middleware(['auth', OnlyAdminHasAccess::class])->name('create-new-user');
 
 // Rute grupate dupa prefix, middleware si controller:
+
 Route::prefix('admin')->controller(UserController::class)->middleware(['auth', 'verified'])->group(function() {
     Route::get('/', 'showHome')->name('admin.home');
+});
+
+Route::prefix('admin')->controller(UserController::class)->middleware(['auth', 'verified', OnlyAdminHasAccess::class])->group(function() {
     Route::get('/users', 'showUsers')->name('admin.users');
     Route::get('/new-user-form', 'newUserForm')->name('new-user-form');
     Route::post('/create-new-user', 'createNewUser')->name('create-new-user');
@@ -58,3 +63,7 @@ Route::prefix('admin')->controller(CategoryController::class)->middleware('auth'
 
 Route::get('/all-categories', [FrontEndController::class, 'showAllCategories'])->name('front.all-categories');
 Route::get('/current-category/{category:slug}', [FrontEndController::class, 'showCurrentCategory'])->name('front.current-category');
+
+Route::prefix('admin')->controller(PostController::class)->middleware('auth', 'verified')->group(function() {
+    Route::get('/posts', 'showPosts')->name('admin.posts');
+});
