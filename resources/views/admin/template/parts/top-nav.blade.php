@@ -5,6 +5,12 @@
 
     <div class="navbar-collapse collapse">
         <ul class="navbar-nav navbar-align">
+            <form action="{{ route('admin.posts') }}" class="d-flex" role="search">
+                @csrf
+                <input name="searchPostTerm" class="form-control me-2" type="search" placeholder="Caută postare..." aria-label="Search">
+                <button class="btn btn-outline-success" type="submit"><i class="align-middle" data-feather="search"></i></button>
+            </form>
+            
             <li class="nav-item dropdown">
                 <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
                     <div class="position-relative">

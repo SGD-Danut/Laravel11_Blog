@@ -35,11 +35,20 @@
             @if (isset($postsStatus))
                 {{ $title . ' ' . $postsStatus }} 
             @else
-                {{ $title }}
+                @if (isset($searchedPost))
+                    {{ $title . ' după căutare: ' }} S-au găsit {{ $posts->total() . ' '.  strtolower($title) }} după termenul <span class="text-info">{{ $searchedPost }}</span> .
+                @else
+                    {{ $title }}
+                @endif
             @endif
         </h5>
         @include('admin.template.parts.messages')
-        <br>           
+        <br>  
+        @can('only-admin-and-author-have-rights')
+            <a href="{{ route('admin.new-post-form') }}">
+                <button type="button" class="btn btn-success new-post-button">Postare nouă</button>
+            </a>
+        @endcan         
     </div>
     <div class="card">
         <div class="text-center">
@@ -60,7 +69,7 @@
                     <th scope="col" class="text-center">Imagine:</th>
                     <th scope="col" class="sortable">@sortablelink('views', 'Vizualizări:')</th>
                     <th scope="col">Meta Desc / Key:</th>
-                    {{-- <th scope="col">Acțiuni:</th> --}}
+                    <th scope="col">Acțiuni:</th>
                 </tr>
             </thead>
             <tbody class="table-group-divider">
@@ -85,6 +94,11 @@
                         <td>
                             {{ $post->meta_description }} <br> {{ $post->meta_keywords }}
                         </td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Action buttons">
+                                <a href="{{ route('admin.edit-post-form', $post->id) }}"><button type="button" class="btn btn-primary">Editare</button></a>
+                            </div>
+                        </td>                        
                     </tr>
                 @endforeach
             </tbody>

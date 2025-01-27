@@ -13,6 +13,10 @@ class Post extends Model
 
     public $sortable = ['created_at', 'title', 'views'];
 
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
+
     public function author() {
         return $this->belongsTo(User::class, 'user_id');
     }

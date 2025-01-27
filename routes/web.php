@@ -66,4 +66,8 @@ Route::get('/current-category/{category:slug}', [FrontEndController::class, 'sho
 
 Route::prefix('admin')->controller(PostController::class)->middleware('auth', 'verified')->group(function() {
     Route::get('/posts', 'showPosts')->name('admin.posts');
+    Route::get('/new-post-form', 'newPostForm')->name('admin.new-post-form');
+    Route::post('/create-new-post', 'createNewPost')->name('admin.create-new-post');
+    Route::get('/edit-post-form/{postId}', 'editPostForm')->name('admin.edit-post-form');
+    Route::put('/update-post/{postId}', 'updatePost')->name('admin.update-post');
 });
