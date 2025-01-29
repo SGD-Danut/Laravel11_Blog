@@ -19,7 +19,7 @@
         <thead>
             <tr>
                 <th scope="col">Poziție:</th>
-                <th scope="col">Titlu:</th>
+                <th scope="col">Titlu / Postări categorie:</th>
                 <th scope="col">Subtitlu:</th>
                 <th scope="col">Vizualizări:</th>
                 <th scope="col" class="text-center">Imagine:</th>
@@ -31,7 +31,10 @@
             @foreach ($categories as $category)
                 <tr>
                     <td>{{ $category->position }}</td>
-                    <td>{{ $category->title }}</td>
+                    <td>
+                        {{ $category->title }} <br>
+                        <a href="{{ route('admin.posts', ['category' => $category->id]) }}">Postări ({{ $category->posts()->count() }})</a>
+                    </td>                    
                     <td>{{ $category->subtitle }}</td>
                     <td>{{ $category->views }}</td>
                     <td><img src="/storage/images/categories/{{ $category->image }}" class="categoryImage mx-auto" width="40" alt="Imagine categorie"></td>

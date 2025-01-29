@@ -32,6 +32,9 @@
     </style>
     <div class="card-header">
         <h5 class="card-title mb-0">
+            @if (isset($nameOfSelectedCategory))
+                S-au găsit {{ $posts->total() }} postări din categoria <span class="text-info">{{ $nameOfSelectedCategory }}</span>       
+            @endif
             @if (isset($postsStatus))
                 {{ $title . ' ' . $postsStatus }} 
             @else
@@ -59,6 +62,12 @@
             </div>
         </div>
     </div>
+    <div class="by-category">
+        <h5>Filtrează postări după categorie:</h5>
+        @foreach ($categories as $category)
+            <a href="{{ route('admin.posts', ['category' => $category->id]) }}"><span class="badge text-bg-warning">{{ $category->title }}</span></a>
+        @endforeach
+    </div>
     @if ($posts->count() > 0)
         <table class="table">
             <thead>
@@ -68,7 +77,7 @@
                     <th scope="col">Autor:</th>
                     <th scope="col" class="text-center">Imagine:</th>
                     <th scope="col" class="sortable">@sortablelink('views', 'Vizualizări:')</th>
-                    <th scope="col">Meta Desc / Key:</th>
+                    <th scope="col">Meta Desc / Categorii postare:</th>
                     <th scope="col">Acțiuni:</th>
                 </tr>
             </thead>
@@ -92,11 +101,26 @@
                         <td><img src="/storage/images/posts/{{ $post->image }}" class="postImage mx-auto" width="40" alt="Imagine postare"></td>
                         <td>{{ $post->views }}</td>
                         <td>
-                            {{ $post->meta_description }} <br> {{ $post->meta_keywords }}
+                            {{ $post->meta_description }} <br>
+                            @foreach ($post->categories->sortBy('title') as $category)
+                                <span class="badge text-bg-secondary">{{ $category->title }}</span>
+                            @endforeach
                         </td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Action buttons">
                                 <a href="{{ route('admin.edit-post-form', $post->id) }}"><button type="button" class="btn btn-primary">Editare</button></a>
+                                <a href="{{ route('admin.change-categories-form', $post->id) }}"><button type="button" class="btn btn-info">Categorii</button></a>
+                                @can('only-admin-and-author-have-rights')
+                                    <form id="delete-post-form-with-id-{{ $post->id }}" action="{{ route('admin.delete-post', $post->id) }}" method="POST">
+                                        @csrf
+                                        @method('delete')
+                                    </form>
+                                    <button type="button" class="btn btn-danger" onclick="
+                                    if(confirm('Sigur ștergeți postarea: {{ $post->title }}?')) {
+                                        document.getElementById('delete-post-form-with-id-' + {{ $post->id }}).submit();
+                                    }
+                                    ">Ștergere</button>
+                                @endcan                    
                             </div>
                         </td>                        
                     </tr>

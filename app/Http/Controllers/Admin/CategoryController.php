@@ -127,6 +127,7 @@ class CategoryController extends Controller
             File::delete('storage/images/categories/' . $category->image);
         }
 
+        $category->posts()->detach();
         $category->delete();
 
         return redirect(route('admin.categories'))->with('success', 'Categoria ' . '<strong>' . $category->title . '</strong>' . ' a fost stearsă definitiv din baza de date!');

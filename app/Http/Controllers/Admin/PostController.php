@@ -10,10 +10,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\AddPostRequest;
+use App\Models\Category;
 
 class PostController extends Controller
 {
     public function showPosts() {
+        $categories = Category::select('id', 'title')->orderBy('title')->get();
+        $nameOfSelectedCategory = null;
         $authorName = null;
         $postsStatus = null;
         $searchedPost = null;
@@ -24,6 +27,12 @@ class PostController extends Controller
         } else {
             $posts = Post::sortable(['created_at' => 'desc'])->paginate(6)->withQueryString();
         }
+
+        if (request('category')) {
+            $category = Category::findOrFail(request('category'));
+            $posts = $category->posts()->sortable(['created_at' => 'desc'])->paginate(6)->withQueryString();
+            $nameOfSelectedCategory = $category->title;
+        }    
 
         $title = 'Postări';
 
@@ -42,7 +51,7 @@ class PostController extends Controller
             $posts = Post::where('title', 'LIKE', "%{$searchedPost}%")->orWhere('meta_description', 'LIKE', "%{$searchedPost}%")->sortable(['created_at' => 'desc'])->paginate(6)->withQueryString();
         }    
 
-        return view('admin.posts.posts')->with('posts', $posts)->with('title', $title)->with('authorName', $authorName)->with('postsStatus', $postsStatus)->with('searchedPost', $searchedPost);
+        return view('admin.posts.posts')->with('posts', $posts)->with('title', $title)->with('authorName', $authorName)->with('postsStatus', $postsStatus)->with('searchedPost', $searchedPost)->with('categories', $categories)->with('nameOfSelectedCategory', $nameOfSelectedCategory);
     }
 
     public function newPostForm() {
@@ -174,4 +183,34 @@ class PostController extends Controller
         
         return redirect(route('admin.posts'))->with('success', $confirmationUpdateMessage);    
     }
+
+    public function showChangeCategoriesForm($postId) {
+        $title = 'Setare categorii';
+        $post = Post::findOrFail($postId);
+        $categories = Category::select('id','title')->orderBy('title')->get();
+
+        return view('admin.posts.change-categories-form')->with('post', $post)->with('categories', $categories)->with('title', $title);    
+    }
+
+    public function changeCategories(Request $request, $postId) {
+        $post = Post::findOrFail($postId);
+        $post->categories()->sync($request->categories);
+        $confirmationChangeCategoriesMessage = "Categoriile pentru postarea " . '<strong>' . $post->title . '</strong>' . " au fost schimbate cu succes!";
+        
+        return redirect(route('admin.posts'))->with('success', $confirmationChangeCategoriesMessage);    
+    }
+
+    public function deletePost($postId) {
+        if (! Gate::allows('only-admin-and-author-have-rights')) {
+            return redirect(route('admin.posts'))->with('error', 'Nu aveți dreptul să executați această acțiune!');
+        }
+        $post = Post::findOrFail($postId);
+        if ($post->image != 'post.png') {
+            File::delete('storage/images/posts/' . $post->image);
+        }
+        $post->categories()->detach(); //Detașăm pagina de toate categoriile.
+        $post->delete();
+        return redirect(route('admin.posts'))->with('success', 'Postarea ' . '<strong>' . $post->title . '</strong>' . ' a fost stearsă definitiv din baza de date!');
+    }
+    
 }

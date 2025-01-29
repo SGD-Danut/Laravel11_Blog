@@ -70,4 +70,7 @@ Route::prefix('admin')->controller(PostController::class)->middleware('auth', 'v
     Route::post('/create-new-post', 'createNewPost')->name('admin.create-new-post');
     Route::get('/edit-post-form/{postId}', 'editPostForm')->name('admin.edit-post-form');
     Route::put('/update-post/{postId}', 'updatePost')->name('admin.update-post');
+    Route::get('/change-categories-form/{postId}', 'showChangeCategoriesForm')->name('admin.change-categories-form');
+    Route::put('/change-categories/{postId}', 'changeCategories')->name('admin.change-categories');
+    Route::delete('/delete-post/{postId}', 'deletePost')->name('admin.delete-post');
 });
