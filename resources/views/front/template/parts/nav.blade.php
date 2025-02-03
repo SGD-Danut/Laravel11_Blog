@@ -11,10 +11,10 @@
             <span class="sr-only">(current)</span>
           </a>
         </li> 
-        {{-- <li class="nav-item">
-          <a class="nav-link" href="about.html">About Us</a>
-        </li>
         <li class="nav-item">
+          <a class="nav-link" href="{{ route('front.all-posts', ['posts' => 'all']) }}">{{ __('All posts') }}</a>
+        </li>
+        {{-- <li class="nav-item">
           <a class="nav-link" href="blog.html">Blog Entries</a>
         </li>
         <li class="nav-item">

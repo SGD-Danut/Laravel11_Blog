@@ -45,6 +45,8 @@
 
     @yield('content')
 
+    @yield('posts')
+
     {{-- Footer: --}}
     @include('front.template.parts.footer')
 

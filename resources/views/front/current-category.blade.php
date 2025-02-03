@@ -37,7 +37,7 @@
                     <span>Categorie:</span>
                     <h4>{{ $category->title }}</h4>
                     <ul class="post-info">
-                      <li><a href="#">10 Postări</a></li>
+                      <li><a href="#">{{ $category->posts()->count() }} Postări</a></li>
                     </ul>
                     {!! $category->presentation !!}
                     <div class="post-options">
@@ -59,8 +59,55 @@
                   </div>
                 </div>
               </div>
-              
-              
+              {{-- Listă postări ==> --}}
+              @include('front.components.posts-list', ['pages' => $category->publicPosts(), 'title' => "Postările acestei categorii:"])
+              {{-- <div class="col-lg-12">
+                <div class="blog-post">
+                  <div class="blog-thumb">
+                    <h3>Postările acestei categorii:</h3>
+                    <br>
+                    {{ $category->publicPosts()->links() }}
+                  </div>
+                </div>
+              </div>
+              @foreach ($category->publicPosts() as $post)
+                <div class="col-lg-6">
+                  <div class="blog-post">
+                    <div class="blog-thumb">
+                      <img src="/storage/images/posts/{{ $post->image }}" alt="Imagine postare {{ $post->slug }}" title="{{ $post->meta_description }}">
+                    </div>
+                    <div class="down-content">
+                      <span>{{ $post->title }}</span>
+                      <a href="post-details.html"><h4>{{ $post->subtitle }}</h4></a>
+                      <ul class="post-info">
+                        <li><a href="#">{{ $post->author->name }}</a></li>
+                        <li><a href="#">{{ $post->published_at->format('d.m.Y - H:i') }}</a></li>
+                        <li><a href="#">12 Commentarii</a></li>
+                      </ul>
+                      <p>{{ $post->presentation }}</p>
+                      <div class="post-options">
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <ul class="post-tags">
+                              <li><i class="fa fa-eye"></i></li>
+                              <li><a href="#">Vizualizări: </a>{{ $post->views }}</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              @endforeach
+              <div class="col-lg-12">
+                <div class="blog-post">
+                  <div class="blog-thumb">
+                    <br>
+                    {{ $category->publicPosts()->links() }}
+                  </div>
+                </div>
+              </div> --}}
+              {{-- <== Listă postări --}}
             </div>
           </div>
         </div>

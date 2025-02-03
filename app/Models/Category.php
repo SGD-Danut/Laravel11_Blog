@@ -13,4 +13,8 @@ class Category extends Model
     public function posts() {
         return $this->belongsToMany(Post::class, 'category_post', 'category_id', 'post_id');
     }
+
+    public function publicPosts() {
+        return $this->belongsToMany(Post::class, 'category_post', 'category_id', 'post_id')->where('published_at', '!=', NULL)->orderByDesc('published_at')->paginate(6)->withQueryString();
+    }        
 }
