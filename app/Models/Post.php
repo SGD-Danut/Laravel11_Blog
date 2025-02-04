@@ -24,4 +24,8 @@ class Post extends Model
     public function categories() {
         return $this->belongsToMany(Category::class, 'category_post', 'post_id', 'category_id');
     }
+
+    public function publicCategories() {
+        return $this->belongsToMany(Category::class, 'category_post', 'post_id', 'category_id')->where('published', 1)->orderBy('title')->get();
+    }       
 }

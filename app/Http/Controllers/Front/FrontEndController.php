@@ -36,6 +36,28 @@ class FrontEndController extends Controller
             $author = User::findOrFail(request('author'));
             $posts = $author->publicPosts();
             return view('front.all-posts')->with('posts', $posts)->with('author', 'Postările autorului: ' . $author->name . ' ');
+        }
+        
+        if (request('searchPostTerm')) {
+            $searchPostTerm = request('searchPostTerm');
+            $posts = Post::whereNotNull('published_at')
+                ->where(function ($query) use ($searchPostTerm) {
+                    return $query
+                    ->where('title', 'LIKE', "%{$searchPostTerm}%")
+                    ->orWhere('subtitle', 'LIKE', "%{$searchPostTerm}%")
+                    ->orWhere('presentation', 'LIKE', "%{$searchPostTerm}%");
+                })
+                ->orderByDesc('published_at')
+                ->paginate(6)
+                ->withQueryString();
+            return view('front.all-posts')->with('posts', $posts)->with('searchPostTerm', 'Articole găsite pentru: ' . $searchPostTerm);
         }    
+    }
+    
+    public function showCurrentPost(Post $post) {
+        $post->views++;
+        $post->save();
+        $title = 'Postări';
+        return view('front.current-post')->with('post', $post)->with('title', $title);
     }    
 }

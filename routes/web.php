@@ -74,4 +74,5 @@ Route::prefix('admin')->controller(PostController::class)->middleware('auth', 'v
     Route::put('/change-categories/{postId}', 'changeCategories')->name('admin.change-categories');
     Route::delete('/delete-post/{postId}', 'deletePost')->name('admin.delete-post');
     Route::get('/all-posts', [FrontEndController::class, 'showAllPosts'])->name('front.all-posts');
+    Route::get('/current-post/{post:slug}', [FrontEndController::class, 'showCurrentPost'])->name('front.current-post');
 });

@@ -32,9 +32,14 @@
                             @isset($author)
                                 @include('front.components.posts-list', ['pages' => $posts, 'title' => $author])
                             @endisset
+                            @isset($searchPostTerm)
+                              @include('front.components.posts-list', ['pages' => $posts, 'title' => $searchPostTerm])
+                            @endisset
                         </div>
                     </div>
                 </div>
+                {{-- Side Nav: --}}
+        @include('front.side-nav')
             </div>
         </div>
     </section>
