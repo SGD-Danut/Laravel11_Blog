@@ -25,7 +25,7 @@
 <section class="blog-posts grid-system">
     <div class="container">
       <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-9">
           <div class="all-blog-posts">
             <div class="row">
               <div class="col-lg-12">
@@ -41,7 +41,9 @@
                         <li><a href="{{ route('front.current-category', $category->slug) }}">{{ $category->title }}</a></li>
                       @endforeach
                     </ul>
-                    {!! $post->presentation !!}
+                    <br>
+                    {!! $post->content !!}
+                    <br>
                     <div class="post-options">
                       <div class="row">
                         <div class="col-6">

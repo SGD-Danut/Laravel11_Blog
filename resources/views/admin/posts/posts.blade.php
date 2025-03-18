@@ -53,22 +53,22 @@
             </a>
         @endcan         
     </div>
-    <div class="card">
-        <div class="text-center">
-            <div class="mb-3">
-                <a class="btn btn-primary" href="{{ route('admin.posts') }}">Toate</a>
-                <a class="btn btn-success" href="{{ route('admin.posts', ['published' => 'public']) }}">Publicate</a>
-                <a class="btn btn-warning" href="{{ route('admin.posts', ['published' => 'private']) }}">Nepublicate</a>
+    @if ($posts->count() > 0)
+        <div class="card">
+            <div class="text-center">
+                <div class="mb-3">
+                    <a class="btn btn-primary" href="{{ route('admin.posts') }}">Toate</a>
+                    <a class="btn btn-success" href="{{ route('admin.posts', ['published' => 'public']) }}">Publicate</a>
+                    <a class="btn btn-warning" href="{{ route('admin.posts', ['published' => 'private']) }}">Nepublicate</a>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="by-category">
-        <h5>Filtrează postări după categorie:</h5>
-        @foreach ($categories as $category)
-            <a href="{{ route('admin.posts', ['category' => $category->id]) }}"><span class="badge text-bg-warning">{{ $category->title }}</span></a>
-        @endforeach
-    </div>
-    @if ($posts->count() > 0)
+        <div class="by-category">
+            <h5>Filtrează postări după categorie:</h5>
+            @foreach ($categories as $category)
+                <a href="{{ route('admin.posts', ['category' => $category->id]) }}"><span class="badge text-bg-warning">{{ $category->title }}</span></a>
+            @endforeach
+        </div>
         <table class="table">
             <thead>
                 <tr>

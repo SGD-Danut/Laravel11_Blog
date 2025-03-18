@@ -27,7 +27,7 @@
             <li><a href="#">{{ $post->published_at->format('d.m.Y - H:i') }}</a></li>
             <li><a href="#">12 Commentarii</a></li>
           </ul>
-          <p>{{ $post->presentation }}</p>
+          {!! $post->presentation !!}
           <div class="post-options">
             <div class="row">
               <div class="col-lg-12">

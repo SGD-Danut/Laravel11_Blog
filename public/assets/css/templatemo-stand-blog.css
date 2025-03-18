@@ -398,7 +398,7 @@ header .navbar {
 /* Blog Posts */
 
 .blog-posts {
-	margin-top: 100px;
+	margin-top: 50px; /* Deafault was 100px */
 }
 
 .blog-posts .blog-post {
@@ -474,10 +474,10 @@ header .navbar {
 }
 
 .blog-posts .down-content p {
-	padding: 25px 0px;
-	margin: 25px 0px;
-	border-top: 1px solid #eee;
-	border-bottom: 1px solid #eee;
+	padding: 5px 0px; /* Deafault was 25px */
+	margin: 5px 0px; /* Deafault was 25px */
+	/* border-top: 1px solid #eee; */
+	/* border-bottom: 1px solid #eee; */
 }
 
 .blog-posts .down-content ul.post-share {
@@ -790,10 +790,10 @@ ul.page-numbers li a:hover {
 /* Footer */
 
 footer {
-	margin-top: 100px;
+	margin-top: 50px; /* Deafault was 100px */
 	text-align: center;
 	background-color: #20232e;
-	padding: 60px 0px;
+	padding: 30px 0px; /* Deafault was 60px 0px */
 }
 
 footer ul.social-icons {
@@ -987,6 +987,10 @@ footer p a:hover {
 
 .about-us ul li a:hover {
 	background-color: #f48840;
+}
+
+.container {
+	max-width: 1400px;
 }
 
 

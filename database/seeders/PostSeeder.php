@@ -14,12 +14,12 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
-        // Post::truncate();
+        Post::truncate();
         // Post::factory(70)->create();
 
-        $categories = Category::all();
-        Post::all()->each(function ($post) use($categories) {
-            $post->categories()->sync($categories->random(rand(1, 3))->pluck('id')->toArray());
-        });    
+        // $categories = Category::all();
+        // Post::all()->each(function ($post) use($categories) {
+        //     $post->categories()->sync($categories->random(rand(1, 3))->pluck('id')->toArray());
+        // });    
     }
 }

@@ -9,9 +9,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\OnlyAdminHasAccess;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -61,8 +61,10 @@ Route::prefix('admin')->controller(CategoryController::class)->middleware('auth'
     Route::delete('/delete-category/{categoryId}', 'deleteCategory')->name('admin.delete-category');
 });
 
-Route::get('/all-categories', [FrontEndController::class, 'showAllCategories'])->name('front.all-categories');
+Route::get('/', [FrontEndController::class, 'showAllCategories'])->name('front.all-categories');
 Route::get('/current-category/{category:slug}', [FrontEndController::class, 'showCurrentCategory'])->name('front.current-category');
+Route::get('/all-posts', [FrontEndController::class, 'showAllPosts'])->name('front.all-posts');
+Route::get('/current-post/{post:slug}', [FrontEndController::class, 'showCurrentPost'])->name('front.current-post');
 
 Route::prefix('admin')->controller(PostController::class)->middleware('auth', 'verified')->group(function() {
     Route::get('/posts', 'showPosts')->name('admin.posts');
@@ -73,6 +75,4 @@ Route::prefix('admin')->controller(PostController::class)->middleware('auth', 'v
     Route::get('/change-categories-form/{postId}', 'showChangeCategoriesForm')->name('admin.change-categories-form');
     Route::put('/change-categories/{postId}', 'changeCategories')->name('admin.change-categories');
     Route::delete('/delete-post/{postId}', 'deletePost')->name('admin.delete-post');
-    Route::get('/all-posts', [FrontEndController::class, 'showAllPosts'])->name('front.all-posts');
-    Route::get('/current-post/{post:slug}', [FrontEndController::class, 'showCurrentPost'])->name('front.current-post');
 });
