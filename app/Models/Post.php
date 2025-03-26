@@ -27,5 +27,9 @@ class Post extends Model
 
     public function publicCategories() {
         return $this->belongsToMany(Category::class, 'category_post', 'post_id', 'category_id')->where('published', 1)->orderBy('title')->get();
-    }       
+    }
+    
+    public function images() {
+        return $this->hasMany(Image::class, 'post_id');
+    }
 }

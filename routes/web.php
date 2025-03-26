@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\PostController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\UserProfileController;
-use App\Http\Controllers\Front\FrontEndController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\OnlyAdminHasAccess;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ImageController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Front\FrontEndController;
+use App\Http\Controllers\Admin\UserProfileController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -75,4 +76,6 @@ Route::prefix('admin')->controller(PostController::class)->middleware('auth', 'v
     Route::get('/change-categories-form/{postId}', 'showChangeCategoriesForm')->name('admin.change-categories-form');
     Route::put('/change-categories/{postId}', 'changeCategories')->name('admin.change-categories');
     Route::delete('/delete-post/{postId}', 'deletePost')->name('admin.delete-post');
+    Route::get('/manage-post-images-form/{postId}', [ImageController::class, 'showPostImagesForm'])->name('admin.manage-post-images-form');
+    Route::post('/manage-post-images-upload/{postId}', [ImageController::class, 'uploadPostImages'])->name('admin.manage-post-images-upload');
 });

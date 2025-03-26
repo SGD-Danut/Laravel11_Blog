@@ -110,6 +110,7 @@
                             <div class="btn-group" role="group" aria-label="Action buttons">
                                 <a href="{{ route('admin.edit-post-form', $post->id) }}"><button type="button" class="btn btn-primary">Editare</button></a>
                                 <a href="{{ route('admin.change-categories-form', $post->id) }}"><button type="button" class="btn btn-info">Categorii</button></a>
+                                <a href="{{ route('admin.manage-post-images-form', $post->id) }}"><button type="button" class="btn btn-secondary">Imagini</button></a> {{-- Aici --}}
                                 @can('only-admin-and-author-have-rights')
                                     <form id="delete-post-form-with-id-{{ $post->id }}" action="{{ route('admin.delete-post', $post->id) }}" method="POST">
                                         @csrf
