@@ -30,6 +30,6 @@ class Post extends Model
     }
     
     public function images() {
-        return $this->hasMany(Image::class, 'post_id');
+        return $this->hasMany(Image::class, 'post_id')->orderBy('position')->paginate(4);
     }
 }

@@ -31,6 +31,8 @@
 		<div class="main">
 			@include('admin.template.parts.top-nav')
 
+			@yield('above-content')
+
 			<main class="content">
 				<div class="container-fluid p-0">
 					<h1 class="h3 mb-3"><strong>Admin</strong> @yield('big-title')</h1>
