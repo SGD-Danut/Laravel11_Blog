@@ -204,10 +204,18 @@ class PostController extends Controller
         if (! Gate::allows('only-admin-and-author-have-rights')) {
             return redirect(route('admin.posts'))->with('error', 'Nu aveți dreptul să executați această acțiune!');
         }
+
         $post = Post::findOrFail($postId);
+
         if ($post->image != 'post.png') {
             File::delete('storage/images/posts/' . $post->image);
         }
+
+        // Dacă postarea are imagini în galerie le vom șterge pe toate:
+        if ($post->images()->count() > 0) {
+            File::deleteDirectory('storage/images/post-images/' . $post->id);
+        }
+
         $post->categories()->detach(); //Detașăm pagina de toate categoriile.
         $post->delete();
         return redirect(route('admin.posts'))->with('success', 'Postarea ' . '<strong>' . $post->title . '</strong>' . ' a fost stearsă definitiv din baza de date!');
