@@ -12,19 +12,28 @@
 @endsection
 
 @section('above-content')
-    @if ($post->images()->count() > 0)
+    @if ($postImages->count() > 0)
         <main class="content">
             <div class="container-fluid p-0">
 
                 <div class="mb-3">
+                    <form id="delete-post-image-form-with-id-{{ $post->id }}" action="{{ route('admin.manage-post-images-delete', $post->id) }}" method="POST">
+                        @csrf
+                        @method('delete')
+                    </form>
+                    <button type="button" class="btn btn-danger" onclick="
+                    if(confirm('Sigur ștergeți toată galeria?')) {
+                        document.getElementById('delete-post-image-form-with-id-' + {{ $post->id }}).submit();
+                    }
+                    ">Șterge toată galeria</button>
                     <a class="badge bg-dark text-white ms-2">
-                        {{ $post->images()->total() }}
+                        {{ $postImages->total() }}
                     </a>
                     <h1 class="h3 d-inline align-middle">Imaginile acestei postări:</h1>
                 </div>
-                {{ $post->images()->links() }}
+                {{ $postImages->links() }}
                 <div class="row">
-                    @foreach ($post->images() as $image)
+                    @foreach ($postImages as $image)
                         <div class="col-12 col-md-3">
                             <div class="card">
                                 <div class="popup-gallery">

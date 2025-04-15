@@ -79,4 +79,5 @@ Route::prefix('admin')->controller(PostController::class)->middleware('auth', 'v
     Route::get('/manage-post-images-form/{postId}', [ImageController::class, 'showPostImagesForm'])->name('admin.manage-post-images-form');
     Route::post('/manage-post-images-upload/{postId}', [ImageController::class, 'uploadPostImages'])->name('admin.manage-post-images-upload');
     Route::put('/manage-post-images-update-image/{imageId}', [ImageController::class, 'updatePostImageFromGallery'])->name('admin.manage-post-images.update-image');
+    Route::delete('/manage-post-images-delete/{imageId}', [ImageController::class, 'deleteAllPostImages'])->name('admin.manage-post-images-delete');
 });

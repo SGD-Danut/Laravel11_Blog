@@ -16,7 +16,8 @@ class ImageController extends Controller
     public function showPostImagesForm ($postId) {
         $post = Post::findOrFail($postId);
         $title = 'Imagini Postare';
-        return view('admin.posts.edit-post-images-form')->with('post', $post)->with('title', $title);
+        $postImages = $post->images()->paginate(4);
+        return view('admin.posts.edit-post-images-form')->with('post', $post)->with('title', $title)->with('postImages', $postImages);
     }
 
     public function uploadPostImages (UploadImagesRequest $request, $postId) {
@@ -73,5 +74,22 @@ class ImageController extends Controller
         $image->save();
 
         return back()->with('success', 'Imagininea a fost actualizată cu succes!');
+    }
+
+    public function deleteAllPostImages($imageId) {
+        $post = Post::findOrFail($imageId);
+
+        // Dacă postarea are imagini în galerie le vom șterge pe toate atât din baza de date și de pe HDD:
+        if ($post->images()->count() > 0) {
+            foreach ($post->images as $image) {
+                $image->delete();
+            }
+
+            File::deleteDirectory('storage/images/post-images/' . $post->id);
+
+            return back()->with('success', 'Galeria de imagini a fost ștearsă cu succes!');
+        }
+
+        return back()->with('success', 'Nu există imagini în galeria de imagini pentru ștergere!');
     }
 }
