@@ -92,4 +92,16 @@ class ImageController extends Controller
 
         return back()->with('success', 'Nu există imagini în galeria de imagini pentru ștergere!');
     }
+
+    public function deleteSinglePostImage($imageId) {
+        $image = Image::findOrFail($imageId);
+
+        if (File::exists($image->filePath())) {
+            File::delete($image->filePath());
+        }
+
+        $image->delete();
+
+        return back()->with('success', 'Imaginea a fost ștearsă din galerie!');
+    }
 }

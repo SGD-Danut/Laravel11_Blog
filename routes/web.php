@@ -80,4 +80,6 @@ Route::prefix('admin')->controller(PostController::class)->middleware('auth', 'v
     Route::post('/manage-post-images-upload/{postId}', [ImageController::class, 'uploadPostImages'])->name('admin.manage-post-images-upload');
     Route::put('/manage-post-images-update-image/{imageId}', [ImageController::class, 'updatePostImageFromGallery'])->name('admin.manage-post-images.update-image');
     Route::delete('/manage-post-images-delete/{imageId}', [ImageController::class, 'deleteAllPostImages'])->name('admin.manage-post-images-delete');
+    // Aici trebuie să fie rutele anterioare scrise de noi...
+    Route::delete('/manage-post-images-delete-image/{imageId}', [ImageController::class, 'deleteSinglePostImage'])->name('admin.manage-post-images-delete-image');
 });

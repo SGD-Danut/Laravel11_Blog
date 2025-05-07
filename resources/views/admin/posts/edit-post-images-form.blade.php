@@ -17,13 +17,13 @@
             <div class="container-fluid p-0">
 
                 <div class="mb-3">
-                    <form id="delete-post-image-form-with-id-{{ $post->id }}" action="{{ route('admin.manage-post-images-delete', $post->id) }}" method="POST">
+                    <form id="delete-post-images-form-with-id-{{ $post->id }}" action="{{ route('admin.manage-post-images-delete', $post->id) }}" method="POST">
                         @csrf
                         @method('delete')
                     </form>
                     <button type="button" class="btn btn-danger" onclick="
                     if(confirm('Sigur ștergeți toată galeria?')) {
-                        document.getElementById('delete-post-image-form-with-id-' + {{ $post->id }}).submit();
+                        document.getElementById('delete-post-images-form-with-id-' + {{ $post->id }}).submit();
                     }
                     ">Șterge toată galeria</button>
                     <a class="badge bg-dark text-white ms-2">
@@ -67,6 +67,17 @@
                                         </div>
                                         <button type="submit" class="btn btn-primary">Actualizează imagine</button>
                                     </form>
+                                    @can('only-admin-and-author-have-rights')
+                                        <form id="delete-post-image-form-with-id-{{ $image->id }}" action="{{ route('admin.manage-post-images-delete-image', $image->id) }}" method="POST">
+                                            @csrf
+                                            @method('delete')
+                                        </form>
+                                        <button type="button" class="btn btn-danger" onclick="
+                                        if(confirm('Sigur ștergeți imaginea din galerie: {{ $image->title }}?')) {
+                                            document.getElementById('delete-post-image-form-with-id-' + {{ $image->id }}).submit();
+                                        }
+                                        ">Ștergere</button>
+                                    @endcan  
                                 </div>
                             </div>
                         </div>
