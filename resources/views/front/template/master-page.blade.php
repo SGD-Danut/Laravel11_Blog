@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/assets/css/fontawesome.css">
     <link rel="stylesheet" href="/assets/css/templatemo-stand-blog.css">
     <link rel="stylesheet" href="/assets/css/owl.css">
+    @yield('custom-css')
   </head>
 
   <body>
@@ -71,6 +72,7 @@
           }
       }
     </script>
+    @yield('custom-js')
 
   </body>
 </html>

@@ -38,7 +38,7 @@
                             <div class="card">
                                 <div class="popup-gallery">
                                     <a href="{{ $image->imageUrl() }}" title="Imagine">
-                                        <img class="card-img-top" src="{{ $image->imageUrl() }}" alt="Unsplash">
+                                        <img class="card-img-top" src="{{ $image->imageUrl() }}" alt="Gallery image">
                                     </a>
                                 </div>
                                 <div class="card-body">
@@ -107,13 +107,13 @@
     <!-- the main fileinput plugin script JS file -->
     <script src="/js/fileinput.min.js"></script>
     <!-- fileinput plugin script validation -->
-    {{-- <script>
+    <script>
         $("#images").fileinput({
             maxFileCount: 6,
             validateInitialCount: true,
             allowedFileExtensions: ["jpg", "jpeg", "png", "gif"]
         });
-    </script> --}}
+    </script>
     <!-- Magnific Popup core JS file -->
     <script src="/js/jquery.magnific-popup.min.js"></script>
     {{-- Script for initialization of the magnific-popup: --}}
