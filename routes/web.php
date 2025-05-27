@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Front\FrontEndController;
 use App\Http\Controllers\Admin\UserProfileController;
+use App\Http\Controllers\Front\ContactMessageController;
+use App\Http\Controllers\MessageController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -33,11 +35,12 @@ require __DIR__.'/auth.php';
 // Route::post('/admin/create-new-user', [UserController::class, 'createNewUser'])->middleware(['auth', OnlyAdminHasAccess::class])->name('create-new-user');
 
 // Rute grupate dupa prefix, middleware si controller:
-
+// Rutele pentru partea de administrare, de back-end:
 Route::prefix('admin')->controller(UserController::class)->middleware(['auth', 'verified'])->group(function() {
     Route::get('/', 'showHome')->name('admin.home');
 });
 
+// Rutele pentru partea de administrare, de back-end, pentru utilizatori:
 Route::prefix('admin')->controller(UserController::class)->middleware(['auth', 'verified', OnlyAdminHasAccess::class])->group(function() {
     Route::get('/users', 'showUsers')->name('admin.users');
     Route::get('/new-user-form', 'newUserForm')->name('new-user-form');
@@ -47,12 +50,14 @@ Route::prefix('admin')->controller(UserController::class)->middleware(['auth', '
     Route::delete('/delete-user/{userId}', 'deleteUser')->name('delete-user');
 });
 
+// Rutele pentru partea de administrare, de back-end, pentru administrarea profilului de utilizator:
 Route::prefix('admin')->controller(UserProfileController::class)->middleware('auth', 'verified')->group(function() {
     Route::get('/edit-user-profile-form', 'showUserProfileForm')->name('edit-user-profile-form');
     Route::put('/update-user-profile', 'updateUserProfile')->name('update-user-profile');
     Route::put('/update-password', 'updatePassword')->name('update-password');
 });
 
+// Rutele pentru partea de administrare, de back-end, pentru categorii:
 Route::prefix('admin')->controller(CategoryController::class)->middleware('auth', 'verified')->group(function() {
     Route::get('/categories', 'showCategories')->name('admin.categories');
     Route::get('/new-category-form', 'newCategoryForm')->name('admin.new-category-form');
@@ -62,11 +67,7 @@ Route::prefix('admin')->controller(CategoryController::class)->middleware('auth'
     Route::delete('/delete-category/{categoryId}', 'deleteCategory')->name('admin.delete-category');
 });
 
-Route::get('/', [FrontEndController::class, 'showAllCategories'])->name('front.all-categories');
-Route::get('/current-category/{category:slug}', [FrontEndController::class, 'showCurrentCategory'])->name('front.current-category');
-Route::get('/all-posts', [FrontEndController::class, 'showAllPosts'])->name('front.all-posts');
-Route::get('/current-post/{post:slug}', [FrontEndController::class, 'showCurrentPost'])->name('front.current-post');
-
+// Rutele pentru partea de administrare, de back-end, pentru postări:
 Route::prefix('admin')->controller(PostController::class)->middleware('auth', 'verified')->group(function() {
     Route::get('/posts', 'showPosts')->name('admin.posts');
     Route::get('/new-post-form', 'newPostForm')->name('admin.new-post-form');
@@ -80,6 +81,15 @@ Route::prefix('admin')->controller(PostController::class)->middleware('auth', 'v
     Route::post('/manage-post-images-upload/{postId}', [ImageController::class, 'uploadPostImages'])->name('admin.manage-post-images-upload');
     Route::put('/manage-post-images-update-image/{imageId}', [ImageController::class, 'updatePostImageFromGallery'])->name('admin.manage-post-images.update-image');
     Route::delete('/manage-post-images-delete/{imageId}', [ImageController::class, 'deleteAllPostImages'])->name('admin.manage-post-images-delete');
-    // Aici trebuie să fie rutele anterioare scrise de noi...
     Route::delete('/manage-post-images-delete-image/{imageId}', [ImageController::class, 'deleteSinglePostImage'])->name('admin.manage-post-images-delete-image');
 });
+
+// Rutele pentru partea de client, de front-end, pentru paginilie principale:
+Route::get('/', [FrontEndController::class, 'showAllCategories'])->name('front.all-categories');
+Route::get('/current-category/{category:slug}', [FrontEndController::class, 'showCurrentCategory'])->name('front.current-category');
+Route::get('/all-posts', [FrontEndController::class, 'showAllPosts'])->name('front.all-posts');
+Route::get('/current-post/{post:slug}', [FrontEndController::class, 'showCurrentPost'])->name('front.current-post');
+
+// Rutele pentru partea de client, de front-end, pentru formularul de contact:
+Route::get('/contact', [ContactMessageController::class, 'newContactMessageForm'])->name('front.contact');
+Route::post('/contact/create-new-message', [ContactMessageController::class, 'createNewContactMessage'])->name('front.create-new-contact-message');

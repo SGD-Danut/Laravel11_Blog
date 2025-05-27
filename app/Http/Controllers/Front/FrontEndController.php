@@ -59,5 +59,5 @@ class FrontEndController extends Controller
         $post->save();
         $title = 'Postări';
         return view('front.current-post')->with('post', $post)->with('title', $title);
-    }    
+    }
 }

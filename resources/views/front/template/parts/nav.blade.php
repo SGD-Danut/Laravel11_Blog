@@ -14,14 +14,14 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ route('front.all-posts', ['posts' => 'all']) }}">{{ __('All posts') }}</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('front.contact') }}">Contact</a>
+        </li>
         {{-- <li class="nav-item">
           <a class="nav-link" href="blog.html">Blog Entries</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="post-details.html">Post Details</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="contact.html">Contact Us</a>
         </li> --}}
       </ul>
     </div>
