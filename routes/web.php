@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ContactMessageController as AdminContactMessageController;
 use App\Http\Controllers\Front\FrontEndController;
 use App\Http\Controllers\Admin\UserProfileController;
 use App\Http\Controllers\Front\ContactMessageController;
@@ -82,6 +83,12 @@ Route::prefix('admin')->controller(PostController::class)->middleware('auth', 'v
     Route::put('/manage-post-images-update-image/{imageId}', [ImageController::class, 'updatePostImageFromGallery'])->name('admin.manage-post-images.update-image');
     Route::delete('/manage-post-images-delete/{imageId}', [ImageController::class, 'deleteAllPostImages'])->name('admin.manage-post-images-delete');
     Route::delete('/manage-post-images-delete-image/{imageId}', [ImageController::class, 'deleteSinglePostImage'])->name('admin.manage-post-images-delete-image');
+});
+
+// Rutele pentru partea de administrare, de back-end, pentru mesajele de contact:
+Route::prefix('admin')->controller(AdminContactMessageController::class)->middleware('auth', 'verified')->group(function() {
+    Route::get('/contact-messages', 'showContactMessages')->name('admin.contact-messages');
+    Route::delete('/delete-contact-message/{contactMessageId}', 'deleteContactMessage')->name('admin.delete-contact-message');
 });
 
 // Rutele pentru partea de client, de front-end, pentru paginilie principale:

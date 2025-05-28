@@ -34,6 +34,12 @@
                     <i class="align-middle" data-feather="layout"></i> <span class="align-middle">Postări</span>
                 </a>
             </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ route('admin.contact-messages') }}">
+                    <i class="align-middle" data-feather="message-square"></i> <span class="align-middle">Mesaje de contact</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
